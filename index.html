@@ -56,7 +56,13 @@
             springForce = 0.01,
             springLength = 50,
             maxDisplacement = 15,
-            gravity = 1.5;
+            gravity = 1.5,
+            colors = [
+                '#617db4',
+                '#668f3c',
+                '#c6583e',
+                '#b956af'
+            ];
 
 
 
@@ -284,11 +290,11 @@
                     }
                 ]
             });
-
+        var scale;
         function frame() {
             s.graph.computePhysics();
             s.refresh();
-
+            
             if (s.graph.nodes().length) {
                 var w = dom.offsetWidth,
                     h = dom.offsetHeight;
@@ -299,8 +305,7 @@
                     xMax = -Infinity,
                     yMin = Infinity,
                     yMax = -Infinity,
-                    margin = 50,
-                    scale;
+                    margin = 50;
 
                 s.graph.nodes().forEach(function(n) {
                     xMin = Math.min(n.x, xMin);
@@ -326,13 +331,14 @@
 
                 ground.style.top =
                     Math.max(h / 2 - Math.min((yMin + yMax) / 2 * scale, h), 0) + 'px';
-                disc.style.borderRadius = radius * scale;
-                disc.style.width = 2 * radius * scale;
-                disc.style.height = 2 * radius * scale;
-                disc.style.top = mouseY - radius * scale;
-                disc.style.left = mouseX - radius * scale;
-                disc.style.backgroundColor = spaceMode ? '#f99' : '#9cf';
             }
+
+            disc.style.borderRadius = radius * scale;
+            disc.style.width = 2 * radius * scale;
+            disc.style.height = 2 * radius * scale;
+            disc.style.top = mouseY - radius * scale;
+            disc.style.left = mouseX - radius * scale;
+            disc.style.backgroundColor = spaceMode ? '#f99' : '#9cf';
             requestAnimationFrame(frame);
         }
 
@@ -383,7 +389,7 @@
                             id: (++eId) + '',
                             source: id,
                             target: n.id,
-                            type: 'goo'
+                            type: 'goo',
                         });
                 else
                     s.graph.dropNode(n.id);
