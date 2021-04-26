@@ -4,7 +4,7 @@
 <div id="container">
     <style>
         #graph-container {
-            background: #fff;
+            background: #dddddb;
             height: calc(100%);
             max-width: calc(100%);
             margin: auto;
@@ -21,7 +21,8 @@
         }
         #ground {
             position: absolute;
-            background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+            background: #2f3436;
+            /* linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); */
             top: 100%;
             bottom: 0;
             left: 0;
@@ -57,12 +58,12 @@
             springLength = 50,
             maxDisplacement = 15,
             gravity = 1.5,
-            colors = [
-                '#617db4',
-                '#668f3c',
-                '#c6583e',
-                '#b956af'
-            ];
+            colors = ["#7eb0ea", "#fdcf51", "#ff9157"];
+    var blackColor = "#2f3436";
+    var whiteColor = "#ededeb";
+    var bgColor = "#dddddb";
+
+    var bgColorSpace = "#111111";
 
 
 
@@ -126,6 +127,7 @@
          * *****************
          */
         sigma.canvas.edges.goo = function(e, s, t, ctx, settings) {
+            e.number=e.number>-1?e.number:Math.floor(Math.random()*3);
             var color = e.color,
                 p = settings('prefix') || '',
                 edgeColor = settings('edgeColor'),
@@ -155,7 +157,7 @@
                 y: (t[p + 'y'] - s[p + 'y']) / d
             };
 
-            ctx.fillStyle = "hsl(" + (d / t[p + 'size'] * 100 - 20) + ",100%,50%)";
+            ctx.fillStyle =colors[e.number%colors.length];// "hsl(" + (d / t[p + 'size'] * 100 - 20) + ",100%,50%)";
             ctx.beginPath();
             ctx.moveTo(
                 s[p + 'x'] + v.y * s[p + 'size'],
@@ -191,6 +193,7 @@
             grd.addColorStop(4 / 6, "blue");
             grd.addColorStop(5 / 6, "indigo");
             grd.addColorStop(6 / 6, "violet");
+            grd=blackColor;
             ctx.fillStyle = grd;
             ctx.beginPath();
             ctx.arc(
